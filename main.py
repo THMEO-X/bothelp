@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 import google.generativeai as genai
 import openai
-import requests
 import os
 import json
 import storage
@@ -58,16 +57,12 @@ monitored_channels = load_channels()
 @bot.event
 async def on_ready():
     print(f"Bot đã đăng nhập với tên {bot.user.name}")
-    await bot.change_presence(activity=discord.Activity(
-        type=discord.ActivityType.watching, name="!help"))
+    await bot.change_presence(activity=discord.Game(
+        name="!start id channel\n!stop id channel"))
 
 @bot.command()
 async def help(ctx):
-    help_text = (
-        "`!start` - id channel\n"
-        "`!stop` - id channel"
-    )
-    await ctx.send(help_text)
+    await ctx.send("`!start` - id channel\n`!stop` - id channel")
 
 @bot.command()
 async def start(ctx, channel_id: int):
